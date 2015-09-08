@@ -3,7 +3,9 @@
   "version": "0.0.1",
   "description": "A proactive web timer for freelancers.",
   "scripts": {
-    "start": "node server.js",
+    "start": "NODE_ENV=production node server",
+    "deploy": "node deploy",
+    "dev": "node server",
     "lint": "eslint src"
   },
   "repository": {

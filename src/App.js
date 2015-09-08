@@ -13,7 +13,7 @@ export class App extends Component {
             running: false,
             intervalID: undefined,
             notification: {}
-        }
+        };
     }
 
     addTime() {
