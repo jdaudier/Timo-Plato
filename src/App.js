@@ -65,7 +65,7 @@ export class App extends Component {
     }
 
     startNotifications() {
-        var intervalID = setTimeout(this.createInteractiveNotification.bind(this), 3000);
+        var intervalID = setTimeout(this.createInteractiveNotification.bind(this), 900000);
 
         this.setState({
             intervalID: intervalID
