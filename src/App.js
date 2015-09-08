@@ -26,13 +26,14 @@ export class App extends Component {
         this.startNotifications();
     }
 
-    onCloseClick(e) {
-        console.log(e.currentTarget);
-        this.setState({
-            running: false
-        }, function() {
-            console.log('onCloseClick');
-        });
+    onCloseClick() {
+        if (this.state.running) {
+            this.setState({
+                running: false
+            }, function() {
+                this.toggleNotifications();
+            });
+        }
     }
 
     createNotification(title, body, icon, alert) {
@@ -64,6 +65,35 @@ export class App extends Component {
         );
     }
 
+    addProject(projectName) {
+        this.setState({
+            projectName: projectName
+        });
+    }
+
+    toggleButtonValue() {
+        this.setState({
+            running: !this.state.running
+        }, function() {
+            this.toggleNotifications();
+        });
+    }
+
+    toggleNotifications() {
+        if (this.state.running) {
+            this.createNotification(
+                'IT HAS BEGAN!',
+                'Timo Plato has started!.',
+                'images/start.png',
+                true
+            );
+
+            this.startNotifications();
+        } else {
+            this.pauseNotifications();
+        }
+    }
+
     startNotifications() {
         var intervalID = setTimeout(this.createInteractiveNotification.bind(this), 900000);
 
@@ -85,31 +115,6 @@ export class App extends Component {
             'images/paused.png',
             true
         );
-    }
-
-    addProject(projectName) {
-        this.setState({
-            projectName: projectName
-        });
-    }
-
-    toggleButtonValue() {
-        this.setState({
-            running: !this.state.running
-        }, function() {
-            if (this.state.running) {
-                this.createNotification(
-                    'IT HAS BEGAN!',
-                    'Timo Plato has started!.',
-                    'images/start.png',
-                    true
-                );
-
-                this.startNotifications();
-            } else {
-                this.pauseNotifications();
-            }
-        });
     }
 
     render() {
