@@ -4,8 +4,8 @@
   "description": "A proactive web timer for freelancers.",
   "scripts": {
     "start": "NODE_ENV=production node server",
-    "deploy": "node deploy",
-    "dev": "node server",
+    "build": "webpack -p --config webpack.config.js",
+    "dev": "rm dist/js/bundle.js && node server",
     "lint": "eslint src"
   },
   "repository": {
