@@ -75,7 +75,9 @@ export class App extends Component {
     pauseNotifications() {
         clearInterval(this.state.intervalID);
 
-        this.state.notification.close();
+        if (typeof this.state.notification.close === 'function') {
+            this.state.notification.close();
+        }
 
         this.createNotification(
             'PAUSED!',
