@@ -34,13 +34,13 @@
     "redbox-react": "^1.0.1",
     "style-loader": "^0.12.3",
     "stylus-loader": "^1.2.1",
-    "url-loader": "^0.5.6",
-    "webpack-dev-middleware": "^1.2.0",
-    "webpack-hot-middleware": "^2.0.0"
+    "url-loader": "^0.5.6"
   },
   "dependencies": {
     "express": "^4.13.3",
     "react": "^0.13.0",
-    "webpack": "^1.9.6"
+    "webpack": "^1.9.6",
+    "webpack-dev-middleware": "^1.2.0",
+    "webpack-hot-middleware": "^2.0.0"
   }
 }

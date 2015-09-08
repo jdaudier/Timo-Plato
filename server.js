@@ -5,20 +5,19 @@ var webpack = require('webpack');
 var config = require('./webpack.config');
 var app = express();
 app.use(express.static('dist'));
-var compiler = webpack(config);
-
 app.set('port', process.env.PORT || 8080);
+var compiler = webpack(config);
 
 if (env === 'dev') {
     require('colors');
-
-    app.use(require('webpack-dev-middleware')(compiler, {
-        noInfo: true,
-        publicPath: config.output.publicPath
-    }));
-
-    app.use(require('webpack-hot-middleware')(compiler));
 }
+
+app.use(require('webpack-dev-middleware')(compiler, {
+    noInfo: true,
+    publicPath: config.output.publicPath
+}));
+
+app.use(require('webpack-hot-middleware')(compiler));
 
 app.get('*', function(req, res) {
   res.sendFile(path.join(__dirname, 'index.html'));
