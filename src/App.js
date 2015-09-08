@@ -45,9 +45,7 @@ export class App extends Component {
         var notification = new Notification(title, options);
 
         if (!alert) {
-            this.setState({
-                notification: notification
-            });
+            this.notification = notification;
 
             notification.onclick = this.addTime.bind(this);
             notification.onclose = this.onCloseClick.bind(this);
@@ -95,18 +93,16 @@ export class App extends Component {
     }
 
     startNotifications() {
-        var intervalID = setTimeout(this.createInteractiveNotification.bind(this), 900000);
-
-        this.setState({
-            intervalID: intervalID
-        });
+        this.intervalID = setTimeout(() => {
+            this.createInteractiveNotification();
+        }, 900000);
     }
 
     pauseNotifications() {
-        clearInterval(this.state.intervalID);
+        clearInterval(this.intervalID);
 
-        if (typeof this.state.notification.close === 'function') {
-            this.state.notification.close();
+        if (this.notification) {
+            this.notification.close();
         }
 
         this.createNotification(
