@@ -1,6 +1,8 @@
 Timo Plato
 =====================
 
+### A proactive time tracker for freelancers and consultants.
+
 Built using [Webpack boilerplate](https://github.com/gaearon/react-transform-boilerplate) with:
 
 * hot reloading React components;

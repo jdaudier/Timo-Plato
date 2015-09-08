@@ -1,7 +1,7 @@
 {
   "name": "timo-plato",
   "version": "0.0.1",
-  "description": "A proactive web timer for freelancers.",
+  "description": "A proactive time tracker for freelancers and consultants.",
   "scripts": {
     "start": "NODE_ENV=production node server",
     "build": "webpack -p --config webpack.config.js",
@@ -13,7 +13,11 @@
     "url": "https://github.com/jdaudier/Timo-Plato.git"
   },
   "keywords": [
-    "timer"
+    "timer",
+    "time",
+    "tracker",
+    "freelancers",
+    "consultants"
   ],
   "author": "Joanne Daudier <jdaudier@outlook.com> (http://github.com/jdaudier)",
   "license": "MIT",
