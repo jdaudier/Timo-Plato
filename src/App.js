@@ -16,24 +16,22 @@ export class App extends Component {
         };
     }
 
-    addTime() {
+    addProject(projectName) {
         this.setState({
-            time: this.state.time + 15
-        }, function() {
-            console.log('total time', this.state.time);
+            projectName: projectName
         });
-
-        this.startNotifications();
     }
 
-    onCloseClick() {
-        if (this.state.running) {
-            this.setState({
-                running: false
-            }, function() {
-                this.toggleNotifications();
-            });
-        }
+    tick() {
+        this.setState({
+            time: this.state.time + 1
+        }, function() {
+            console.log('TOTAL SECONDS', this.state.time);
+
+            if (this.state.time >= 60) {
+                console.log('TOTAL MINUTES', Math.round(this.state.time / 60));
+            }
+        });
     }
 
     createNotification(title, body, icon, alert) {
@@ -47,26 +45,29 @@ export class App extends Component {
         if (!alert) {
             this.notification = notification;
 
-            notification.onclick = this.addTime.bind(this);
-            notification.onclose = this.onCloseClick.bind(this);
+            notification.onclick = () => this.addTime();
+            notification.onshow = () => clearInterval(this.timerIntervalID);
+            notification.onclose = () => this.onCloseClick();
         } else {
-            // For alerts that self closes
-            setTimeout(notification.close.bind(notification), 3000);
+            // For self-closing alerts
+            setTimeout(() => {
+                notification.close();
+            }, 3000);
         }
     }
 
-    createInteractiveNotification() {
-        return this.createNotification(
-            `Still working on ${this.state.projectName}?`,
-            `Click this message if YES. Close if NO.`,
-            'images/clock.png'
-        );
+    addTime() {
+        this.startTimer();
     }
 
-    addProject(projectName) {
-        this.setState({
-            projectName: projectName
-        });
+    onCloseClick() {
+        if (this.state.running) {
+            this.setState({
+                running: false
+            }, function() {
+                this.toggleNotifications();
+            });
+        }
     }
 
     toggleButtonValue() {
@@ -86,20 +87,31 @@ export class App extends Component {
                 true
             );
 
-            this.startNotifications();
+            this.startTimer();
         } else {
-            this.pauseNotifications();
+            this.pauseTimer();
         }
     }
 
-    startNotifications() {
-        this.intervalID = setTimeout(() => {
+    createInteractiveNotification() {
+        return this.createNotification(
+            `Still working on ${this.state.projectName}?`,
+            `Click this message if YES. Close if NO.`,
+            'images/clock.png'
+        );
+    }
+
+    startTimer() {
+        this.timerIntervalID = setInterval(() => this.tick(), 1000);
+
+        this.notificationIntervalID = setTimeout(() => {
             this.createInteractiveNotification();
         }, 900000);
     }
 
-    pauseNotifications() {
-        clearInterval(this.intervalID);
+    pauseTimer() {
+        clearInterval(this.notificationIntervalID);
+        clearInterval(this.timerIntervalID);
 
         if (this.notification) {
             this.notification.close();
