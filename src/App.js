@@ -12,7 +12,6 @@ export class App extends Component {
             time: 0,
             running: false,
             intervalID: undefined,
-            notification: {}
         };
     }
 
@@ -34,7 +33,7 @@ export class App extends Component {
         });
     }
 
-    createNotification(title, body, icon, alert) {
+    createNotification(title, body, icon, isSelfClosing) {
         var options = {
             body: body,
             icon: icon
@@ -42,14 +41,14 @@ export class App extends Component {
 
         var notification = new Notification(title, options);
 
-        if (!alert) {
+        if (!isSelfClosing) {
             this.notification = notification;
 
             notification.onclick = () => this.addTime();
             notification.onshow = () => clearInterval(this.timerIntervalID);
             notification.onclose = () => this.onCloseClick();
         } else {
-            // For self-closing alerts
+            // For self-closing notifications
             setTimeout(() => {
                 notification.close();
             }, 3000);
