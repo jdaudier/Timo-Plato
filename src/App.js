@@ -31,9 +31,15 @@ export class App extends Component {
                 console.log('TOTAL MINUTES', Math.round(this.state.time / 60));
             }
         });
+
+        if (!this.state.running) {
+            this.setState({
+                running: true
+            });
+        }
     }
 
-    createNotification(title, body, icon, isSelfClosing) {
+    createNotification(title, body, icon, isSelfClosing, isPaused) {
         var options = {
             body: body,
             icon: icon
@@ -41,12 +47,17 @@ export class App extends Component {
 
         var notification = new Notification(title, options);
 
-        if (!isSelfClosing) {
+        if (!isSelfClosing && !isPaused) {
             this.notification = notification;
 
             notification.onclick = () => this.addTime();
             notification.onshow = () => clearInterval(this.timerIntervalID);
             notification.onclose = () => this.onCloseClick();
+        } else if (isPaused) {
+            this.notification = notification;
+
+            notification.onclick = () => this.addTime();
+            notification.onshow = () => clearInterval(this.timerIntervalID);
         } else {
             // For self-closing notifications
             setTimeout(() => {
@@ -63,10 +74,16 @@ export class App extends Component {
         if (this.state.running) {
             this.setState({
                 running: false
-            }, function() {
-                this.toggleNotifications();
             });
         }
+    }
+
+    createInteractiveNotification() {
+        return this.createNotification(
+            `Still working on ${this.state.projectName}?`,
+            `Click this message if YES. Close if NO.`,
+            'images/clock.png'
+        );
     }
 
     toggleButtonValue() {
@@ -92,15 +109,11 @@ export class App extends Component {
         }
     }
 
-    createInteractiveNotification() {
-        return this.createNotification(
-            `Still working on ${this.state.projectName}?`,
-            `Click this message if YES. Close if NO.`,
-            'images/clock.png'
-        );
-    }
-
     startTimer() {
+        if (this.notification) {
+            this.notification.close();
+        }
+
         this.timerIntervalID = setInterval(() => this.tick(), 1000);
 
         this.notificationIntervalID = setTimeout(() => {
@@ -118,8 +131,9 @@ export class App extends Component {
 
         this.createNotification(
             'PAUSED!',
-            'Timo Plato is paused!',
-            'images/paused.png',
+            'Click me to un-pause!',
+            'images/moon.png',
+            false,
             true
         );
     }

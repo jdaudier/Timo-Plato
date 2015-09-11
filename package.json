@@ -5,7 +5,7 @@
   "scripts": {
     "start": "NODE_ENV=production node server",
     "build": "webpack -p --config webpack.config.js",
-    "dev": "rm dist/js/bundle.js && node server",
+    "dev": "node server",
     "lint": "eslint src"
   },
   "repository": {
@@ -48,5 +48,6 @@
     "react": "^0.13.0",
     "webpack": "^1.9.6",
     "webpack-hot-middleware": "^2.0.0"
-  }
+  },
+  "engine": "^4.0.0"
 }
