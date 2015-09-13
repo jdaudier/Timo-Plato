@@ -1,21 +1,26 @@
 import React, { Component } from 'react';
 import { ItemView } from './ItemView';
+import { styles } from './styles';
 
 export class CollectionView extends Component {
     constructor(props) {
         super(props);
     }
 
+    removeFromProjectList(projectName) {
+        this.props.removeFromProjectList(projectName);
+    }
+
     render() {
-        var projects = this.props.projects.map(function(project, index){
+        var projects = this.props.projects.map(function(projectName, index){
             return <ItemView
                 key={index}
-                project={project} />
+                projectName={projectName}
+                removeFromProjectList={this.removeFromProjectList.bind(this)} />
         }, this);
 
-
         return (
-            <ul className="tbd">
+            <ul style={styles.ul}>
                 {projects}
             </ul>
         );

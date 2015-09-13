@@ -17,7 +17,7 @@ export class Form extends Component {
                 true
             );
         } else {
-            this.props.toggleButtonValue();
+            this.props.addToProjectList();
         }
     }
 
@@ -31,12 +31,8 @@ export class Form extends Component {
             <form onSubmit={this.handleSubmit.bind(this)}>
                 <input
                     type="text"
-                    ref="myTextInput"
                     value={this.props.projectName}
                     onChange={this.handleChange.bind(this)} />
-                <input
-                    type="submit"
-                    value={this.props.running ? 'PAUSE' : 'START'} />
             </form>
         );
     }

@@ -11,10 +11,7 @@ export class App extends Component {
         this.state = {
             currentlyRunning: '',
             projects: [],
-            projectName: '',
-            time: 0,
-            running: false,
-            intervalID: undefined
+            projectName: ''
         };
     }
 
@@ -42,25 +39,16 @@ export class App extends Component {
         });
     }
 
-    tick() {
+    removeFromProjectList(projectName) {
+        var projects = this.state.projects;
+        var index = projects.indexOf(projectName);
+
         this.setState({
-            time: this.state.time + 1
-        }, function() {
-            console.log('TOTAL SECONDS', this.state.time);
-
-            if (this.state.time >= 60) {
-                console.log('TOTAL MINUTES', Math.round(this.state.time / 60));
-            }
-        });
-
-        if (!this.state.running) {
-            this.setState({
-                running: true
-            });
-        }
+            projects: React.addons.update(projects, {$splice: [[index, 1]]})
+        })
     }
 
-    createNotification(title, body, icon, isSelfClosing, isPaused) {
+    createNotification(title, body, icon, isSelfClosing) {
         var options = {
             body: body,
             icon: icon
@@ -68,18 +56,7 @@ export class App extends Component {
 
         var notification = new Notification(title, options);
 
-        if (!isSelfClosing && !isPaused) {
-            this.notification = notification;
-
-            notification.onclick = () => this.addTime();
-            notification.onshow = () => clearInterval(this.timerIntervalID);
-            notification.onclose = () => this.onCloseClick();
-        } else if (isPaused) {
-            this.notification = notification;
-
-            notification.onclick = () => this.addTime();
-            notification.onshow = () => clearInterval(this.timerIntervalID);
-        } else {
+        if (isSelfClosing) {
             // For self-closing notifications
             setTimeout(() => {
                 notification.close();
@@ -87,90 +64,16 @@ export class App extends Component {
         }
     }
 
-    addTime() {
-        this.startTimer();
-    }
-
-    onCloseClick() {
-        if (this.state.running) {
-            this.setState({
-                running: false
-            });
-        }
-    }
-
-    createInteractiveNotification() {
-        return this.createNotification(
-            `Still working on ${this.state.projectName}?`,
-            `Click this message if YES. Close if NO.`,
-            'images/clock.png'
-        );
-    }
-
-    toggleButtonValue() {
-        this.setState({
-            running: !this.state.running
-        }, function() {
-            this.toggleNotifications();
-        });
-
-        this.addToProjectList();
-    }
-
-    toggleNotifications() {
-        if (this.state.running) {
-            this.createNotification(
-                'IT HAS BEGAN!',
-                'Timo Plato has started!.',
-                'images/start.png',
-                true
-            );
-
-            this.startTimer();
-        } else {
-            this.pauseTimer();
-        }
-    }
-
-    startTimer() {
-        if (this.notification) {
-            this.notification.close();
-        }
-
-        this.timerIntervalID = setInterval(() => this.tick(), 1000);
-
-        this.notificationIntervalID = setTimeout(() => {
-            this.createInteractiveNotification();
-        }, 900000);
-    }
-
-    pauseTimer() {
-        clearInterval(this.notificationIntervalID);
-        clearInterval(this.timerIntervalID);
-
-        if (this.notification) {
-            this.notification.close();
-        }
-
-        this.createNotification(
-            'PAUSED!',
-            'Click me to un-pause!',
-            'images/moon.png',
-            false,
-            true
-        );
-    }
-
     render() {
         return (
             <div>
                 <Form addProject={this.addProject.bind(this)}
                       projectName={this.state.projectName}
-                      toggleButtonValue={this.toggleButtonValue.bind(this)}
-                      running={this.state.running}
+                      addToProjectList={this.addToProjectList.bind(this)}
                       createNotification={this.createNotification.bind(this)} />
 
-                <CollectionView projects={this.state.projects} />
+                <CollectionView projects={this.state.projects}
+                      removeFromProjectList={this.removeFromProjectList.bind(this)} />
             </div>
         );
     }
