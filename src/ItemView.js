@@ -48,7 +48,7 @@ export class ItemView extends Component {
             this.notification = notification;
 
             notification.onclick = () => this.addTime();
-            notification.onshow = () => this.clearIntervals();
+            notification.onshow = () => this.onShow();
             notification.onclose = () => this.onCloseClick();
         } else {
             // For self-closing notifications
@@ -60,6 +60,16 @@ export class ItemView extends Component {
 
     addTime() {
         this.startTimer();
+    }
+
+    onShow() {
+        this.clearIntervals();
+
+        if (this.state.running) {
+            this.setState({
+                running: false
+            });
+        }
     }
 
     onCloseClick() {
@@ -157,8 +167,6 @@ export class ItemView extends Component {
     }
 
     onDeleteClick() {
-        this.clearTimeouts();
-        this.clearIntervals();
         this.closeNotification();
 
         this.props.removeFromProjectList(this.props.projectName);
