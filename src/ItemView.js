@@ -6,9 +6,34 @@ export class ItemView extends Component {
 
         this.state = {
             time: 0,
-            running: false,
-            intervalID: undefined
+            running: false
         };
+    }
+
+    componentWillMount() {
+        this.intervals = [];
+        this.timeouts = [];
+    }
+
+    setInterval() {
+        this.intervals.push(setInterval.apply(null, arguments));
+    }
+
+    setTimeout() {
+        this.timeouts.push(setTimeout.apply(null, arguments));
+    }
+
+    componentWillUnmount() {
+        this.intervals.map(clearInterval);
+        this.timeouts.map(clearTimeout);
+    }
+
+    clearIntervals() {
+        this.intervals.map(clearInterval);
+    }
+
+    clearTimeouts() {
+        this.timeouts.map(clearTimeout);
     }
 
     createNotification(title, body, icon, isSelfClosing) {
@@ -23,11 +48,11 @@ export class ItemView extends Component {
             this.notification = notification;
 
             notification.onclick = () => this.addTime();
-            notification.onshow = () => clearInterval(this.timerIntervalID);
+            notification.onshow = () => this.clearIntervals();
             notification.onclose = () => this.onCloseClick();
         } else {
             // For self-closing notifications
-            setTimeout(() => {
+            this.setTimeout(() => {
                 notification.close();
             }, 3000);
         }
@@ -97,16 +122,16 @@ export class ItemView extends Component {
     startTimer() {
         this.closeNotification();
 
-        this.timerIntervalID = setInterval(() => this.tick(), 1000);
+        this.setInterval(() => this.tick(), 1000);
 
-        this.notificationIntervalID = setTimeout(() => {
+        this.setTimeout(() => {
             this.createInteractiveNotification();
-        }, 4000);
+        }, 900000);
     }
 
     pauseTimer() {
-        clearInterval(this.notificationIntervalID);
-        clearInterval(this.timerIntervalID);
+        this.clearTimeouts();
+        this.clearIntervals();
 
         this.closeNotification();
 
@@ -118,18 +143,22 @@ export class ItemView extends Component {
     }
 
     onResetClick() {
-        clearInterval(this.notificationIntervalID);
-        clearInterval(this.timerIntervalID);
+        this.clearTimeouts();
+        this.clearIntervals();
         this.closeNotification();
 
         this.setState({
             time: 0
         });
+
+        this.setState({
+            running: false
+        });
     }
 
     onDeleteClick() {
-        clearInterval(this.notificationIntervalID);
-        clearInterval(this.timerIntervalID);
+        this.clearTimeouts();
+        this.clearIntervals();
         this.closeNotification();
 
         this.props.removeFromProjectList(this.props.projectName);
