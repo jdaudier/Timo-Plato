@@ -11,7 +11,7 @@ export class App extends Component {
             projectName: '',
             time: 0,
             running: false,
-            intervalID: undefined,
+            intervalID: undefined
         };
     }
 
@@ -145,8 +145,7 @@ export class App extends Component {
                       projectName={this.state.projectName}
                       toggleButtonValue={this.toggleButtonValue.bind(this)}
                       running={this.state.running}
-                      createNotification={this.createNotification.bind(this)}
-                />
+                      createNotification={this.createNotification.bind(this)} />
             </div>
         );
     }

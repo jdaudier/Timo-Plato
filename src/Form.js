@@ -33,12 +33,10 @@ export class Form extends Component {
                     type="text"
                     ref="myTextInput"
                     value={this.props.projectName}
-                    onChange={this.handleChange.bind(this)}
-                />
+                    onChange={this.handleChange.bind(this)} />
                 <input
                     type="submit"
-                    value={this.props.running ? 'PAUSE' : 'START'}
-                />
+                    value={this.props.running ? 'PAUSE' : 'START'} />
             </form>
         );
     }
