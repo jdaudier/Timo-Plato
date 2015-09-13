@@ -1,6 +1,7 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react/addons';
 import { NICE, SUPER_NICE } from './colors';
 import { Form } from './Form';
+import { CollectionView } from './CollectionView';
 
 export class App extends Component {
     constructor(props) {
@@ -8,6 +9,8 @@ export class App extends Component {
         Notification.requestPermission();
 
         this.state = {
+            currentlyRunning: '',
+            projects: [],
             projectName: '',
             time: 0,
             running: false,
@@ -18,6 +21,24 @@ export class App extends Component {
     addProject(projectName) {
         this.setState({
             projectName: projectName
+        });
+    }
+
+    addToProjectList() {
+        var newProjectsArray = React.addons.update(this.state.projects, {
+            $push: [this.state.projectName]
+        });
+
+        this.setState({
+            projects: newProjectsArray
+        });
+
+        this.clearProjectName();
+    }
+
+    clearProjectName() {
+        this.setState({
+            projectName: ''
         });
     }
 
@@ -92,6 +113,8 @@ export class App extends Component {
         }, function() {
             this.toggleNotifications();
         });
+
+        this.addToProjectList();
     }
 
     toggleNotifications() {
@@ -146,6 +169,8 @@ export class App extends Component {
                       toggleButtonValue={this.toggleButtonValue.bind(this)}
                       running={this.state.running}
                       createNotification={this.createNotification.bind(this)} />
+
+                <CollectionView projects={this.state.projects} />
             </div>
         );
     }
