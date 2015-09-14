@@ -152,7 +152,7 @@ export class ItemView extends Component {
         );
     }
 
-    onResetClick() {
+    onReset() {
         this.clearTimeouts();
         this.clearIntervals();
         this.closeNotification();
@@ -166,10 +166,10 @@ export class ItemView extends Component {
         });
     }
 
-    onDeleteClick() {
+    onDelete() {
         this.closeNotification();
 
-        this.props.removeFromProjectList(this.props.projectName);
+        this.props.onDelete(this.props.projectName);
     }
 
     render() {
@@ -182,9 +182,9 @@ export class ItemView extends Component {
                         onClick={this.handleClick.bind(this)}>
                         {this.state.running ? 'PAUSE' : 'START'}</button>
                 <button type='button'
-                        onClick={this.onResetClick.bind(this)}>Reset</button>
+                        onClick={this.onReset.bind(this)}>Reset</button>
                 <button type='button'
-                        onClick={this.onDeleteClick.bind(this)}>Delete</button>
+                        onClick={this.onDelete.bind(this)}>Delete</button>
             </li>
         );
     }

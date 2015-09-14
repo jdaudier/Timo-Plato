@@ -7,16 +7,16 @@ export class CollectionView extends Component {
         super(props);
     }
 
-    removeFromProjectList(projectName) {
-        this.props.removeFromProjectList(projectName);
+    onDelete(projectName) {
+        this.props.onDelete(projectName);
     }
 
     render() {
         var projects = this.props.projects.map(function(projectName){
             return <ItemView
-                key={Math.random()}
+                key={projectName}
                 projectName={projectName}
-                removeFromProjectList={this.removeFromProjectList.bind(this)} />
+                onDelete={this.onDelete.bind(this)} />
         }, this);
 
         return (

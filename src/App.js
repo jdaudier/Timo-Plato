@@ -39,12 +39,13 @@ export class App extends Component {
         });
     }
 
-    removeFromProjectList(projectName) {
-        var projects = this.state.projects;
-        var index = projects.indexOf(projectName);
+    deleteProject(projectName) {
+        var projects = this.state.projects.filter(function(project){
+            return project !== projectName;
+        });
 
         this.setState({
-            projects: React.addons.update(projects, {$splice: [[index, 1]]})
+            projects: projects
         })
     }
 
@@ -73,7 +74,7 @@ export class App extends Component {
                       createNotification={this.createNotification.bind(this)} />
 
                 <CollectionView projects={this.state.projects}
-                      removeFromProjectList={this.removeFromProjectList.bind(this)} />
+                                onDelete={this.deleteProject.bind(this)} />
             </div>
         );
     }
