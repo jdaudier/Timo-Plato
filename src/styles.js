@@ -52,6 +52,7 @@ var styles = {
     button: {
         background: PINK,
         color: 'white',
+        cursor: 'pointer',
         border: 'none',
         borderRadius: '24px',
         fontWeight: '700',
