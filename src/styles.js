@@ -27,14 +27,19 @@ var styles = {
         borderRadius: '7px',
         padding: '20px',
         marginBottom: '14px',
-        position: 'relative'
+        position: 'relative',
+        paddingRight: '90px'
     },
 
     h1: {
-        fontSize: '20px',
+        fontSize: '22px',
         marginBottom: '15px',
         marginTop: '0',
         textTransform: 'uppercase'
+    },
+
+    h2: {
+        fontSize: '22px'
     },
 
     image: {
@@ -42,6 +47,18 @@ var styles = {
         right: '10px',
         top: '15px',
         width: '60px'
+    },
+
+    button: {
+        background: PINK,
+        color: 'white',
+        border: 'none',
+        borderRadius: '24px',
+        fontWeight: '700',
+        marginRight: '14px',
+        padding: '10px',
+        textTransform: 'uppercase',
+        width: '70px'
     }
 };
 

@@ -7,6 +7,7 @@ export class ItemView extends Component {
 
         this.state = {
             time: 0,
+            formattedTime: '00:00:00',
             running: false
         };
 
@@ -87,13 +88,22 @@ export class ItemView extends Component {
     tick() {
         this.setState({
             time: this.state.time + 1
-        });
+        }, this.formatTime.bind(this));
 
         if (!this.state.running) {
             this.setState({
                 running: true
             });
         }
+    }
+
+    formatTime() {
+        var seconds = this.state.time;
+        var minutes = Math.floor(seconds / 60);
+
+        this.setState({
+            formattedTime: minutes
+        });
     }
 
     createInteractiveNotification() {
@@ -181,14 +191,14 @@ export class ItemView extends Component {
             <li style={styles.li}>
                 <img style={styles.image} src={'images/icons/' + this.icon + '.png'}></img>
                 <h1 style={styles.h1}>{this.props.projectName}</h1>
-                <div>TOTAL SECONDS: {this.state.time}</div>
-                <button type='button'>Edit</button>
-                <button type='button'
+                <h2 style={styles.h2}>{this.state.formattedTime}</h2>
+                <button style={styles.button} type='button'>Edit</button>
+                <button style={styles.button} type='button'
                         onClick={this.handleClick.bind(this)}>
-                        {this.state.running ? 'PAUSE' : 'START'}</button>
-                <button type='button'
+                        {this.state.running ? 'pause' : 'start'}</button>
+                <button style={styles.button} type='button'
                         onClick={this.onReset.bind(this)}>Reset</button>
-                <button type='button'
+                <button style={styles.button} type='button'
                         onClick={this.onDelete.bind(this)}>Delete</button>
             </li>
         );
