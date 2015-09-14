@@ -1,5 +1,4 @@
 import React, { Component } from 'react/addons';
-import { NICE, SUPER_NICE } from './colors';
 import { Form } from './Form';
 import { CollectionView } from './CollectionView';
 

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { styles } from './styles';
 
 export class Form extends Component {
     constructor(props) {
@@ -28,8 +29,10 @@ export class Form extends Component {
 
     render() {
         return (
-            <form onSubmit={this.handleSubmit.bind(this)}>
+            <form style={styles.form} onSubmit={this.handleSubmit.bind(this)}>
                 <input
+                    placeholder="What are you working on?"
+                    style={styles.input}
                     type="text"
                     value={this.props.projectName}
                     onChange={this.handleChange.bind(this)} />

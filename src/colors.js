@@ -1,2 +1,3 @@
-export const NICE = 'red';
-export const SUPER_NICE = 'darkred';
+export const PINK = '#ED1E79';
+export const LIGHTGRAY = '#D6D7D8';
+export const GRAY = '#474747';

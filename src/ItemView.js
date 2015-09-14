@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { styles } from './styles';
 
 export class ItemView extends Component {
     constructor(props) {
@@ -8,6 +9,9 @@ export class ItemView extends Component {
             time: 0,
             running: false
         };
+
+        var icons = ['at_sign', 'clock', 'coffee', 'doc', 'download', 'globe', 'heart', 'hi', 'home', 'lightbulb', 'money', 'phone', 'pizza', 'plant', 'play_btn', 'profile', 'rocket', 'settings', 'vader'];
+        this.icon = icons[Math.floor(Math.random()*icons.length)];
     }
 
     componentWillMount() {
@@ -174,8 +178,9 @@ export class ItemView extends Component {
 
     render() {
         return (
-            <li>
-                <h3>{this.props.projectName}</h3>
+            <li style={styles.li}>
+                <img style={styles.image} src={'images/icons/' + this.icon + '.png'}></img>
+                <h1 style={styles.h1}>{this.props.projectName}</h1>
                 <div>TOTAL SECONDS: {this.state.time}</div>
                 <button type='button'>Edit</button>
                 <button type='button'
