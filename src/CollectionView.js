@@ -12,9 +12,9 @@ export class CollectionView extends Component {
     }
 
     render() {
-        var projects = this.props.projects.map(function(projectName, index){
+        var projects = this.props.projects.map(function(projectName){
             return <ItemView
-                key={index}
+                key={Math.random()}
                 projectName={projectName}
                 removeFromProjectList={this.removeFromProjectList.bind(this)} />
         }, this);
