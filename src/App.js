@@ -21,6 +21,23 @@ export class App extends Component {
         });
     }
 
+    verifyProjectNameIsUnique() {
+        var sameNames = this.state.projects.filter(function(project){
+            return project === this.state.projectName;
+        }, this);
+
+        if (sameNames.length > 0) {
+            this.createNotification(
+                'TRY AGAIN!',
+                'Project names must be unique.',
+                'images/sad_woman.png',
+                true
+            );
+        } else {
+            this.addToProjectList();
+        }
+    }
+
     addToProjectList() {
         var newProjectsArray = React.addons.update(this.state.projects, {
             $push: [this.state.projectName]
@@ -70,7 +87,7 @@ export class App extends Component {
             <div>
                 <Form addProject={this.addProject.bind(this)}
                       projectName={this.state.projectName}
-                      addToProjectList={this.addToProjectList.bind(this)}
+                      onSubmit={this.verifyProjectNameIsUnique.bind(this)}
                       createNotification={this.createNotification.bind(this)} />
 
                 <CollectionView projects={this.state.projects}

@@ -17,7 +17,7 @@ export class Form extends Component {
                 true
             );
         } else {
-            this.props.addToProjectList();
+            this.props.onSubmit();
         }
     }
 
