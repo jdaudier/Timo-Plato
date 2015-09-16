@@ -96,13 +96,22 @@ export class ItemView extends Component {
             });
         }
     }
-
+	
+	pad(num) {
+		var s = '0000' + num;
+		return s.substr(s.length - 2);
+	}
+	
     formatTime() {
-        var seconds = this.state.time;
-        var minutes = Math.floor(seconds / 60);
+        var unformattedTime = this.state.time;
+
+	    var hours = Math.floor((unformattedTime % 86400) / 3600);
+	    var minutes = Math.floor(((unformattedTime % 86400) % 3600) / 60);
+	    var seconds = ((unformattedTime % 86400) % 3600) % 60;
+	    var formattedTime = `${this.pad(hours)}:${this.pad(minutes)}:${this.pad(seconds)}`;
 
         this.setState({
-            formattedTime: minutes
+            formattedTime: formattedTime
         });
     }
 
