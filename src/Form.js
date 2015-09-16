@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { styles } from './styles';
+import { styles } from './styles/styles';
 
 export class Form extends Component {
     constructor(props) {

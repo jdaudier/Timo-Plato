@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { ItemView } from './ItemView';
-import { styles } from './styles';
+import { styles } from './styles/styles';
 
 export class CollectionView extends Component {
     constructor(props) {

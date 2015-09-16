@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { styles } from './styles';
+import { styles } from './styles/styles';
 
 export class ItemView extends Component {
     constructor(props) {
@@ -183,6 +183,10 @@ export class ItemView extends Component {
         this.setState({
             time: 0
         });
+
+	    this.setState({
+		    formattedTime: '00:00:00'
+	    });
 
         this.setState({
             running: false
