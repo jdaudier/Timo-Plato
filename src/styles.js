@@ -1,4 +1,4 @@
-import { PINK, LIGHTGRAY, GRAY } from './colors';
+import { GRAY, LIGHTGRAY, PINK, SILVER } from './colors';
 
 var styles = {
     form: {
@@ -33,13 +33,17 @@ var styles = {
 
     h1: {
         fontSize: '22px',
-        marginBottom: '15px',
+        marginBottom: '0',
         marginTop: '0',
         textTransform: 'uppercase'
     },
 
     h2: {
-        fontSize: '22px'
+	    fontFamily: 'digital, Roboto Condensed, sans-serif',
+        fontSize: '55px',
+	    marginBottom: '.25em',
+	    marginTop: '.15em',
+	    textShadow: '0 0 5px SILVER'
     },
 
     image: {
