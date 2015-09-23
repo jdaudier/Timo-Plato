@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Button } from './Button';
 import { styles } from './styles/styles';
 
 export class ItemView extends Component {
@@ -96,19 +97,19 @@ export class ItemView extends Component {
             });
         }
     }
-	
-	pad(num) {
-		var s = '0000' + num;
-		return s.substr(s.length - 2);
-	}
-	
+
+    pad(num) {
+        var s = '0000' + num;
+        return s.substr(s.length - 2);
+    }
+
     formatTime() {
         var unformattedTime = this.state.time;
 
-	    var hours = Math.floor((unformattedTime % 86400) / 3600);
-	    var minutes = Math.floor(((unformattedTime % 86400) % 3600) / 60);
-	    var seconds = ((unformattedTime % 86400) % 3600) % 60;
-	    var formattedTime = `${this.pad(hours)}:${this.pad(minutes)}:${this.pad(seconds)}`;
+        var hours = Math.floor((unformattedTime % 86400) / 3600);
+        var minutes = Math.floor(((unformattedTime % 86400) % 3600) / 60);
+        var seconds = ((unformattedTime % 86400) % 3600) % 60;
+        var formattedTime = `${this.pad(hours)}:${this.pad(minutes)}:${this.pad(seconds)}`;
 
         this.setState({
             formattedTime: formattedTime
@@ -175,7 +176,11 @@ export class ItemView extends Component {
         );
     }
 
-    onReset() {
+    handEdit() {
+        console.log('handle edit');
+    }
+
+    handleReset() {
         this.clearTimeouts();
         this.clearIntervals();
         this.closeNotification();
@@ -184,16 +189,16 @@ export class ItemView extends Component {
             time: 0
         });
 
-	    this.setState({
-		    formattedTime: '00:00:00'
-	    });
+        this.setState({
+            formattedTime: '00:00:00'
+        });
 
         this.setState({
             running: false
         });
     }
 
-    onDelete() {
+    handleDelete() {
         this.closeNotification();
 
         this.props.onDelete(this.props.projectName);
@@ -205,14 +210,18 @@ export class ItemView extends Component {
                 <img style={styles.image} src={'images/icons/' + this.icon + '.png'}></img>
                 <h1 style={styles.h1}>{this.props.projectName}</h1>
                 <h2 style={styles.h2}>{this.state.formattedTime}</h2>
-                <button style={styles.button} type='button'>Edit</button>
-                <button style={styles.button} type='button'
-                        onClick={this.handleClick.bind(this)}>
-                        {this.state.running ? 'pause' : 'start'}</button>
-                <button style={styles.button} type='button'
-                        onClick={this.onReset.bind(this)}>Reset</button>
-                <button style={styles.button} type='button'
-                        onClick={this.onDelete.bind(this)}>Delete</button>
+                <Button onClick={() => this.handEdit()}
+                        buttonText='edit'
+                />
+                <Button onClick={() => this.handleClick()}
+                        buttonText={this.state.running ? 'pause' : 'start'}
+                />
+                <Button onClick={() => this.handleReset()}
+                        buttonText='reset'
+                />
+                <Button onClick={() => this.handleDelete()}
+                        buttonText='delete'
+                />
             </li>
         );
     }

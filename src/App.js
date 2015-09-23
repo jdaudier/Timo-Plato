@@ -87,11 +87,13 @@ export class App extends Component {
             <div>
                 <Form addProject={this.addProject.bind(this)}
                       projectName={this.state.projectName}
-                      onSubmit={this.verifyProjectNameIsUnique.bind(this)}
-                      createNotification={this.createNotification.bind(this)} />
+                      onSubmit={() => this.verifyProjectNameIsUnique()}
+                      createNotification={this.createNotification.bind(this)}
+                />
 
                 <CollectionView projects={this.state.projects}
-                                onDelete={this.deleteProject.bind(this)} />
+                                onDelete={this.deleteProject.bind(this)}
+                />
             </div>
         );
     }

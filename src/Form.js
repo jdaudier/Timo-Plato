@@ -35,7 +35,8 @@ export class Form extends Component {
                     style={styles.input}
                     type="text"
                     value={this.props.projectName}
-                    onChange={this.handleChange.bind(this)} />
+                    onChange={this.handleChange.bind(this)}
+                />
             </form>
         );
     }

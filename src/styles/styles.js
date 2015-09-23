@@ -1,4 +1,4 @@
-import { GRAY, LIGHTGRAY, PINK, SILVER } from './colors';
+import { GRAY, LIGHTGRAY, PINK, DARKPINK, SILVER } from './colors';
 
 var styles = {
     form: {
@@ -55,6 +55,19 @@ var styles = {
 
     button: {
         background: PINK,
+        color: 'white',
+        cursor: 'pointer',
+        border: 'none',
+        borderRadius: '24px',
+        fontWeight: '700',
+        marginRight: '14px',
+        padding: '10px',
+        textTransform: 'uppercase',
+        width: '70px'
+    },
+
+    buttonHover: {
+        background: DARKPINK,
         color: 'white',
         cursor: 'pointer',
         border: 'none',
