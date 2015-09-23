@@ -45,7 +45,10 @@
   },
   "dependencies": {
     "express": "^4.13.3",
-    "react": "^0.13.0",
+    "react": "^0.14.0-rc1",
+    "react-addons-update": "^0.14.0-rc1",
+    "react-dom": "^0.14.0-rc1",
+    "react-motion": "^0.2.7",
     "webpack": "^1.9.6",
     "webpack-hot-middleware": "^2.0.0"
   },

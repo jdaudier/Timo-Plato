@@ -1,4 +1,5 @@
-import React, { Component } from 'react/addons';
+import React, { Component } from 'react';
+import update from 'react-addons-update';
 import { Form } from './Form';
 import { CollectionView } from './CollectionView';
 
@@ -38,7 +39,7 @@ export class App extends Component {
     }
 
     addToProjectList() {
-        var newProjectsArray = React.addons.update(this.state.projects, {
+        var newProjectsArray = update(this.state.projects, {
             $push: [this.state.projectName]
         });
 
