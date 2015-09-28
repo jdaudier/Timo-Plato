@@ -8,7 +8,7 @@ module.exports = {
     './src/index'
   ],
   output: {
-    path: path.join(__dirname, 'dist', 'js'),
+    path: path.join(__dirname, 'dist'),
     filename: 'bundle.js',
     publicPath: '/js/'
   },
@@ -21,9 +21,6 @@ module.exports = {
       test: /\.js$/,
       loaders: ['babel'],
       include: path.join(__dirname, 'src')
-    }, {
-      test: /\.(png|jpg)$/,
-      loader: 'url-loader?limit=8192' // inline base64 URLs for <=8k images, direct URLs for the rest
     }]
   },
   resolve: {
