@@ -14,8 +14,7 @@ export class Form extends Component {
             this.props.createNotification(
                 'OOPS!',
                 'Please enter project name.',
-                'images/caution.png',
-                true
+                'images/caution.png'
             );
         } else {
             this.props.onSubmit();

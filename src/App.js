@@ -30,8 +30,7 @@ export class App extends Component {
             this.createNotification(
                 'TRY AGAIN!',
                 'Project names must be unique.',
-                'images/sad_woman.png',
-                true
+                'images/sad_woman.png'
             );
         } else {
             this.addToProjectList();
@@ -66,15 +65,16 @@ export class App extends Component {
         })
     }
 
-    createNotification(title, body, icon, isSelfClosing) {
+    createNotification(title, body, icon, requireInteraction) {
         var options = {
             body: body,
-            icon: icon
+            icon: icon,
+            requireInteraction: requireInteraction
         };
 
         var notification = new Notification(title, options);
 
-        if (isSelfClosing) {
+        if (!requireInteraction) {
             // For self-closing notifications
             setTimeout(() => {
                 notification.close();

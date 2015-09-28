@@ -42,15 +42,16 @@ export class ItemView extends Component {
         this.timeouts.map(clearTimeout);
     }
 
-    createNotification(title, body, icon, isSelfClosing) {
+    createNotification(title, body, icon, requireInteraction) {
         var options = {
             body: body,
-            icon: icon
+            icon: icon,
+            requireInteraction: requireInteraction
         };
 
         var notification = new Notification(title, options);
 
-        if (!isSelfClosing) {
+        if (requireInteraction) {
             this.notification = notification;
 
             notification.onclick = () => this.addTime();
@@ -120,7 +121,8 @@ export class ItemView extends Component {
         this.createNotification(
             `Still working on ${this.props.projectName}?`,
             `Click this message if YES. Close if NO.`,
-            'images/clock.png'
+            'images/clock.png',
+            true
         );
     }
 
@@ -137,8 +139,7 @@ export class ItemView extends Component {
             this.createNotification(
                 'IT HAS BEGAN!',
                 'Timo Plato has started!.',
-                'images/start.png',
-                true
+                'images/start.png'
             );
 
             this.startTimer();
@@ -172,7 +173,8 @@ export class ItemView extends Component {
         this.createNotification(
             'PAUSED!',
             'Click me to un-pause!',
-            'images/moon.png'
+            'images/moon.png',
+            true
         );
     }
 
