@@ -1,6 +1,7 @@
 var env = process.env.NODE_ENV || 'dev';
 var path = require('path');
 var express = require('express');
+var favicon = require('serve-favicon');
 var webpack = require('webpack');
 var config = require('./webpack.config.dev');
 
@@ -9,6 +10,8 @@ app.use(express.static('dist'));
 app.set('port', process.env.PORT || 8080);
 var compiler = webpack(config);
 require('colors');
+
+app.use(favicon(path.join(__dirname, 'dist', 'favicon.ico')));
 
 app.use(require('webpack-dev-middleware')(compiler, {
     noInfo: true,

@@ -43,6 +43,7 @@
   },
   "dependencies": {
     "express": "^4.13.3",
+    "serve-favicon": "~2.3.0",
     "react": "^0.14.0-rc1",
     "react-addons-update": "^0.14.0-rc1",
     "react-dom": "^0.14.0-rc1",
