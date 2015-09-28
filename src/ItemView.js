@@ -14,6 +14,9 @@ export class ItemView extends Component {
 
         var icons = ['at_sign', 'clock', 'coffee', 'doc', 'download', 'globe', 'heart', 'hi', 'home', 'lightbulb', 'money', 'phone', 'pizza', 'plant', 'play_btn', 'profile', 'rocket', 'settings', 'vader'];
         this.icon = icons[Math.floor(Math.random()*icons.length)];
+
+        var startIcons = ['heart', 'start', 'sun', 'timer', 'traffic-lights'];
+        this.startIcons = startIcons[Math.floor(Math.random()*startIcons.length)];
     }
 
     componentWillMount() {
@@ -139,7 +142,7 @@ export class ItemView extends Component {
             this.createNotification(
                 'IT HAS BEGAN!',
                 'Timo Plato has started!.',
-                'images/start.png'
+                'images/start/' + this.startIcons + '.png'
             );
 
             this.startTimer();

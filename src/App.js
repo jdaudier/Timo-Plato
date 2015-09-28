@@ -13,6 +13,9 @@ export class App extends Component {
             projects: [],
             projectName: ''
         };
+
+        var avatars = ['bald_man', 'boy', 'boy2', 'face_man', 'face_woman', 'hipster', 'hipster2', 'punk', 'sad_man', 'sad_woman'];
+        this.avatars = avatars[Math.floor(Math.random()*avatars.length)];
     }
 
     addProject(projectName) {
@@ -30,7 +33,7 @@ export class App extends Component {
             this.createNotification(
                 'TRY AGAIN!',
                 'Project names must be unique.',
-                'images/sad_woman.png'
+                'images/avatars/' + this.avatars + '.png'
             );
         } else {
             this.addToProjectList();
