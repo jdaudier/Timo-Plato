@@ -64,16 +64,14 @@ export class App extends Component {
         var i = this.state.projects.indexOf(state.origProjectName);
 
         if (i !== -1) {
-            this.state.projects.splice(i, 1);
+            var newProjectsArray = update(this.state.projects, {
+                $splice: [[i, 1, state.projectName]]
+            });
+
+            this.setState({
+                projects: newProjectsArray
+            });
         }
-
-        var newProjectsArray = update(this.state.projects, {
-            $push: [state.projectName]
-        });
-
-        this.setState({
-            projects: newProjectsArray
-        });
     }
 
     clearProjectName() {
