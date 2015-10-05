@@ -14,7 +14,7 @@ export class App extends Component {
             projectName: ''
         };
 
-        var avatars = ['bald_man', 'boy', 'boy2', 'face_man', 'face_woman', 'hipster', 'hipster2', 'punk', 'sad_man', 'sad_woman'];
+        var avatars = ['bald_man', 'boy', 'boy2', 'face_man', 'face_woman', 'hipster', 'hipster2', 'punk', 'sad_woman'];
         this.avatars = avatars[Math.floor(Math.random()*avatars.length)];
     }
 
