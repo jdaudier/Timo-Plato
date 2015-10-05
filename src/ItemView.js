@@ -7,6 +7,9 @@ export class ItemView extends Component {
         super(props);
 
         this.state = {
+            editMode: false,
+            origProjectName: this.props.projectName,
+            projectName: this.props.projectName,
             time: 0,
             formattedTime: '00:00:00',
             running: false
@@ -122,7 +125,7 @@ export class ItemView extends Component {
 
     createInteractiveNotification() {
         this.createNotification(
-            `Still working on ${this.props.projectName}?`,
+            `Still working on ${this.state.projectName}?`,
             `Click this message if YES. Close if NO.`,
             'images/clock.png',
             true
@@ -181,8 +184,36 @@ export class ItemView extends Component {
         );
     }
 
-    handEdit() {
-        console.log('handle edit');
+    handleEdit() {
+        this.save();
+    }
+
+    handleChange(e) {
+        this.setState({
+            projectName: e.target.value
+        });
+    }
+
+    handleSubmit(e) {
+        if (e.key === 'Enter') {
+            this.save();
+        }
+    }
+
+    save() {
+        if (this.state.origProjectName !== this.state.projectName) {
+            if (this.props.isProjectNameUnique(this.state.projectName)) {
+                this.props.editProjectList(this.state);
+
+                this.setState({
+                    editMode: !this.state.editMode
+                });
+            }
+        } else {
+            this.setState({
+                editMode: !this.state.editMode
+            });
+        }
     }
 
     handleReset() {
@@ -206,17 +237,21 @@ export class ItemView extends Component {
     handleDelete() {
         this.closeNotification();
 
-        this.props.onDelete(this.props.projectName);
+        this.props.onDelete(this.state.projectName);
     }
 
     render() {
         return (
             <li style={styles.li}>
-                <img style={styles.image} src={'images/icons/' + this.icon + '.png'}></img>
-                <h1 style={styles.h1}>{this.props.projectName}</h1>
+                <img style={styles.image} src={'images/icons/' + this.icon + '.png'} />
+                <h1 style={this.state.editMode ? styles.hidden : styles.h1}>{this.state.projectName}</h1>
+                <input style={this.state.editMode ? styles.projectNameInput : styles.hidden} type='text' name='projectName' value={this.state.projectName}
+                       onChange={this.handleChange.bind(this)}
+                       onKeyUp={this.handleSubmit.bind(this)}
+                />
                 <h2 style={styles.h2}>{this.state.formattedTime}</h2>
-                <Button onClick={() => this.handEdit()}
-                        buttonText='edit'
+                <Button onClick={() => this.handleEdit()}
+                        buttonText={this.state.editMode ? 'save' : 'edit'}
                 />
                 <Button onClick={() => this.handleClick()}
                         buttonText={this.state.running ? 'pause' : 'start'}

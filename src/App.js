@@ -24,19 +24,27 @@ export class App extends Component {
         });
     }
 
-    verifyProjectNameIsUnique() {
+    handleSubmit() {
+        if (this.isProjectNameUnique(this.state.projectName)) {
+            this.addToProjectList();
+        }
+    }
+
+    isProjectNameUnique(value) {
         var sameNames = this.state.projects.filter(function(project){
-            return project === this.state.projectName;
+            return project === value;
         }, this);
 
-        if (sameNames.length > 0) {
+        if (sameNames.length === 0) {
+            return true;
+        } else {
             this.createNotification(
                 'TRY AGAIN!',
                 'Project names must be unique.',
                 'images/avatars/' + this.avatars + '.png'
             );
-        } else {
-            this.addToProjectList();
+
+            return false;
         }
     }
 
@@ -50,6 +58,22 @@ export class App extends Component {
         });
 
         this.clearProjectName();
+    }
+
+    editProjectList(state) {
+        var i = this.state.projects.indexOf(state.origProjectName);
+
+        if (i !== -1) {
+            this.state.projects.splice(i, 1);
+        }
+
+        var newProjectsArray = update(this.state.projects, {
+            $push: [state.projectName]
+        });
+
+        this.setState({
+            projects: newProjectsArray
+        });
     }
 
     clearProjectName() {
@@ -90,11 +114,13 @@ export class App extends Component {
             <div>
                 <Form addProject={this.addProject.bind(this)}
                       projectName={this.state.projectName}
-                      onSubmit={() => this.verifyProjectNameIsUnique()}
+                      onSubmit={() => this.handleSubmit()}
                       createNotification={this.createNotification.bind(this)}
                 />
 
                 <CollectionView projects={this.state.projects}
+                                isProjectNameUnique={this.isProjectNameUnique.bind(this)}
+                                editProjectList={this.editProjectList.bind(this)}
                                 onDelete={this.deleteProject.bind(this)}
                 />
             </div>

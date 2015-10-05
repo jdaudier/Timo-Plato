@@ -1,6 +1,10 @@
 import { GRAY, LIGHTGRAY, PINK, DARKPINK, SILVER } from './colors';
 
 var styles = {
+    hidden: {
+        display: 'none'
+    },
+    
     form: {
         width: '100%'
     },
@@ -36,6 +40,17 @@ var styles = {
         marginBottom: '0',
         marginTop: '0',
         textTransform: 'uppercase'
+    },
+
+    projectNameInput: {
+        border: '1px solid ' + LIGHTGRAY,
+        borderRadius: '3px',
+        color: GRAY,
+        fontFamily: 'Roboto Condensed, sans-serif',
+        fontSize: '22px',
+        padding: '5px',
+        textTransform: 'uppercase',
+        width: '100%'
     },
 
     h2: {
