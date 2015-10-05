@@ -33,7 +33,8 @@ export class Button extends Component {
                     onMouseLeave={() => this.handleMouseLeave()}
                     onClick={() => this.onClick()}
             >
-            {this.props.buttonText}
+                <img style={styles.buttonImage}
+                    src={`images/buttons/${this.props.buttonType}.svg`} />
             </button>
         );
     }

@@ -243,24 +243,24 @@ export class ItemView extends Component {
     render() {
         return (
             <li style={styles.li}>
-                <img style={styles.image} src={'images/icons/' + this.icon + '.png'} />
+                <img style={styles.image} src={`images/icons/${this.icon}.png`} />
                 <h1 style={this.state.editMode ? styles.hidden : styles.h1}>{this.state.projectName}</h1>
                 <input style={this.state.editMode ? styles.projectNameInput : styles.hidden} type='text' name='projectName' value={this.state.projectName}
                        onChange={this.handleChange.bind(this)}
                        onKeyUp={this.handleSubmit.bind(this)}
                 />
                 <h2 style={styles.h2}>{this.state.formattedTime}</h2>
-                <Button onClick={() => this.handleEdit()}
-                        buttonText={this.state.editMode ? 'save' : 'edit'}
-                />
                 <Button onClick={() => this.handleClick()}
-                        buttonText={this.state.running ? 'pause' : 'start'}
+                        buttonType={this.state.running ? 'pause' : 'play'}
+                />
+                <Button onClick={() => this.handleEdit()}
+                        buttonType={this.state.editMode ? 'save' : 'edit'}
                 />
                 <Button onClick={() => this.handleReset()}
-                        buttonText='reset'
+                        buttonType='reset'
                 />
                 <Button onClick={() => this.handleDelete()}
-                        buttonText='delete'
+                        buttonType='delete'
                 />
             </li>
         );

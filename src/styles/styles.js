@@ -70,28 +70,29 @@ var styles = {
 
     button: {
         background: PINK,
-        color: 'white',
         cursor: 'pointer',
         border: 'none',
-        borderRadius: '24px',
+        borderRadius: '20px',
         fontWeight: '700',
         marginRight: '14px',
         padding: '10px',
-        textTransform: 'uppercase',
         width: '70px'
     },
 
     buttonHover: {
         background: DARKPINK,
-        color: 'white',
         cursor: 'pointer',
         border: 'none',
-        borderRadius: '24px',
+        borderRadius: '20px',
         fontWeight: '700',
         marginRight: '14px',
         padding: '10px',
-        textTransform: 'uppercase',
         width: '70px'
+    },
+
+    buttonImage: {
+        height: '25px',
+        width: '25px'
     }
 };
 
