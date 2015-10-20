@@ -14,7 +14,7 @@ Built using [Webpack boilerplate](https://github.com/gaearon/react-transform-boi
 
 ```
 npm i
-npm start
+npm run dev
 open http://localhost:8080
 ```
 
